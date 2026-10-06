@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Rajmahal Palace — Where Kings Once Dreamed</title>
+  <meta name="description" content="An ultra-luxury lake palace hotel experience. Where royalty was born and stillness endures." />
+
+  <!-- Preload critical font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=Manrope:wght@300;400;500&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Preload hero video -->
+  <link rel="preload" as="video" href="assets/videos/01-hero-aerial.mp4" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring">
+      <span class="cursor-label">VIEW</span>
+    </div>
+  </div>
+
+  <!-- Film grain overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Fixed chapter number -->
+  <div class="chapter-indicator" id="chapterIndicator">
+    <span class="chapter-num" id="chapterNum">01</span>
+  </div>
+
+  <!-- Side progress hairline (for scrubbed sections) -->
+  <div class="scroll-progress-rail" id="scrollProgressRail" aria-hidden="true">
+    <div class="scroll-progress-fill" id="scrollProgressFill"></div>
+  </div>
+
+  <!-- ============================================================
+       PRELOADER
+  ============================================================ -->
+  <div class="preloader" id="preloader" role="status" aria-label="Loading">
+    <div class="preloader-bg"></div>
+    <div class="preloader-content">
+      <div class="preloader-letters" id="preloaderLetters">
+        <span>R</span><span>A</span><span>J</span><span>M</span><span>A</span><span>H</span><span>A</span><span>L</span>
+      </div>
+      <div class="preloader-rule"></div>
+      <div class="preloader-counter" id="preloaderCounter">0</div>
+    </div>
+    <div class="preloader-curtain" id="preloaderCurtain"></div>
+  </div>
+
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-logo">
+      <span class="nav-logo-text">Rajmahal</span>
+      <span class="nav-logo-sub">Palace</span>
+    </div>
+    <div class="nav-links">
+      <a href="#chapter-arrival" class="nav-link">Arrival</a>
+      <a href="#chapter-suites" class="nav-link">Suites</a>
+      <a href="#chapter-gardens" class="nav-link">Gardens</a>
+      <a href="#chapter-finale" class="nav-link">Reserve</a>
+    </div>
+    <a href="#chapter-finale" class="nav-cta">Reserve</a>
+  </nav>
+
+  <!-- ============================================================
+       CHAPTER 1 — HERO (Scroll-scrubbed)
+  ============================================================ -->
+  <section class="chapter chapter-hero" id="chapter-hero" data-chapter="01">
+    <div class="scrub-pin-wrapper" id="heroPinWrapper">
+      <div class="scrub-media">
+        <video
+          id="heroVideo"
+          class="scrub-video"
+          muted
+          playsinline
+          preload="auto"
+          webkit-playsinline
+          aria-hidden="true"
+        >
+          <source src="./assets/videos/01-hero-aerial.mp4" type="video/mp4">
+        </video>
+        <div class="video-fallback sapphire-fallback" id="heroFallback" aria-hidden="true"></div>
+        <div class="vignette" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="eyebrow-text">The Rajmahal Palace</span>
+          <div class="eyebrow-rule"></div>
+        </div>
+        <h1 class="hero-headline" id="heroHeadline" aria-label="Where Kings Once Dreamed. Now, You Will.">
+          <div class="split-line" data-line="1">
+            <span class="word-wrap"><span class="word">Where</span></span>
+            <span class="word-wrap"><span class="word">Kings</span></span>
+            <span class="word-wrap"><span class="word">Once</span></span>
+            <span class="word-wrap"><span class="word">Dreamed</span></span>
+          </div>
+          <div class="split-line hero-second-line" data-line="2" id="heroSecondLine">
+            <span class="word-wrap"><span class="word italic">Now,</span></span>
+            <span class="word-wrap"><span class="word italic">You</span></span>
+            <span class="word-wrap"><span class="word italic">Will.</span></span>
+          </div>
+        </h1>
+      </div>
+
+      <div class="scroll-cue" id="scrollCue" aria-hidden="true">
+        <div class="scroll-cue-line"></div>
+        <span class="scroll-cue-text">Scroll to descend</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 2 — ARRIVAL (Scroll-scrubbed)
+  ============================================================ -->
+  <section class="chapter chapter-arrival" id="chapter-arrival" data-chapter="02">
+    <div class="scrub-pin-wrapper" id="arrivalPinWrapper">
+      <div class="scrub-media">
+        <video
+          id="arrivalVideo"
+          class="scrub-video"
+          muted
+          playsinline
+          preload="metadata"
+          webkit-playsinline
+          aria-hidden="true"
+        >
+          <source src="./assets/videos/02-arrival-gate.mp4" type="video/mp4">
+        </video>
+        <div class="video-fallback teal-fallback" id="arrivalFallback" aria-hidden="true"></div>
+        <div class="vignette" aria-hidden="true"></div>
+      </div>
+
+      <div class="arrival-content">
+        <div class="arrival-eyebrow eyebrow-text">
+          <span class="eyebrow-num">01</span>
+          <span class="eyebrow-dash">—</span>
+          <span>The Arrival</span>
+        </div>
+        <h2 class="arrival-headline" id="arrivalHeadline">
+          <span class="arrival-word" data-dir="left">Through</span>
+          <span class="arrival-word" data-dir="right">gates</span>
+          <span class="arrival-word" data-dir="left">carved</span>
+          <span class="arrival-word" data-dir="right">by</span>
+          <span class="arrival-word" data-dir="left">a hundred</span>
+          <span class="arrival-word" data-dir="right">hands</span>
+        </h2>
+      </div>
+
+      <!-- Jali lattice transition overlay -->
+      <div class="jali-overlay" id="jaliOverlay" aria-hidden="true">
+        <svg class="jali-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="jaliPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M5,0 L10,5 L5,10 L0,5 Z" fill="none" stroke="#C9A96E" stroke-width="0.3" opacity="0.6"/>
+              <circle cx="5" cy="5" r="1" fill="none" stroke="#C9A96E" stroke-width="0.2" opacity="0.4"/>
+              <path d="M0,0 L5,5 M10,0 L5,5 M0,10 L5,5 M10,10 L5,5" stroke="#C9A96E" stroke-width="0.15" opacity="0.3"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#jaliPattern)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 3 — DURBAR HALL (Autoplay loop)
+  ============================================================ -->
+  <section class="chapter chapter-durbar" id="chapter-durbar" data-chapter="03">
+    <div class="durbar-inner">
+      <div class="durbar-video-col">
+        <div class="durbar-video-wrap">
+          <video
+            id="durbarVideo"
+            class="autoplay-video"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            webkit-playsinline
+            aria-hidden="true"
+          >
+            <source src="./assets/videos/03-durbar-lobby.mp4" type="video/mp4">
+          </video>
+          <div class="video-fallback sapphire-fallback" id="durbarFallback" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="durbar-text-col">
+        <div class="durbar-text-panel">
+          <div class="eyebrow-text">
+            <span class="eyebrow-num">02</span>
+            <span class="eyebrow-dash">—</span>
+            <span>The Durbar Hall</span>
+          </div>
+          <h2 class="durbar-headline reveal-lines">
+            <span class="reveal-line">A court of</span>
+            <span class="reveal-line">a thousand</span>
+            <span class="reveal-line">whispered stories.</span>
+          </h2>
+          <p class="durbar-body reveal-lines">
+            <span class="reveal-line">The Durbar Hall has welcomed maharajas, merchants,</span>
+            <span class="reveal-line">and quiet souls seeking refuge from the world.</span>
+            <span class="reveal-line">Its columns have heard centuries of silence.</span>
+          </p>
+
+          <div class="durbar-stats">
+            <div class="stat-item">
+              <span class="stat-num" data-target="1743">0</span>
+              <span class="stat-label">Year Founded</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="92">0</span>
+              <span class="stat-label">Royal Suites</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" data-target="14">0</span>
+              <span class="stat-label">Acres of Gardens</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 4 — THE MAHARAJA SUITE (Autoplay loop + horizontal scroll)
+  ============================================================ -->
+  <section class="chapter chapter-suites" id="chapter-suites" data-chapter="04">
+    <div class="suites-pin-wrapper" id="suitesPinWrapper">
+      <div class="suites-bg">
+        <video
+          id="suitesVideo"
+          class="autoplay-video parallax-video"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          webkit-playsinline
+          aria-hidden="true"
+        >
+          <source src="./assets/videos/04-royal-suite.mp4" type="video/mp4">
+        </video>
+        <div class="video-fallback sapphire-fallback" id="suitesFallback" aria-hidden="true"></div>
+        <div class="vignette" aria-hidden="true"></div>
+        <div class="suites-scrim" aria-hidden="true"></div>
+      </div>
+
+      <div class="suites-content">
+        <div class="suites-header">
+          <div class="eyebrow-text">
+            <span class="eyebrow-num">03</span>
+            <span class="eyebrow-dash">—</span>
+            <span>The Maharaja Suite</span>
+          </div>
+          <h2 class="suites-headline reveal-lines">
+            <span class="reveal-line">Quarters fit for</span>
+            <span class="reveal-line">a sovereign's repose.</span>
+          </h2>
+        </div>
+
+        <div class="suites-cards-track" id="suitesTrack">
+          <div class="suite-card">
+            <div class="suite-card-inner">
+              <span class="suite-card-eyebrow eyebrow-text">The Maharaja Chamber</span>
+              <p class="suite-card-poem">Where the lake mirrors the stars and silence speaks louder than ceremony.</p>
+              <span class="suite-card-price">From ₹80,000 / night</span>
+            </div>
+          </div>
+          <div class="suite-card">
+            <div class="suite-card-inner">
+              <span class="suite-card-eyebrow eyebrow-text">The Zenana Suite</span>
+              <p class="suite-card-poem">Draped in hand-woven silks, a sanctuary of solitude above the shimmering waters.</p>
+              <span class="suite-card-price">From ₹65,000 / night</span>
+            </div>
+          </div>
+          <div class="suite-card">
+            <div class="suite-card-inner">
+              <span class="suite-card-eyebrow eyebrow-text">The Diwan Pavilion</span>
+              <p class="suite-card-poem">Colonnaded verandahs open to the evening breeze and a garden that breathes at dusk.</p>
+              <span class="suite-card-price">From ₹48,000 / night</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 5 — POOL & GARDENS (Autoplay + clip-path reveal)
+  ============================================================ -->
+  <section class="chapter chapter-gardens" id="chapter-gardens" data-chapter="05">
+    <div class="gardens-pin-wrapper" id="gardensPinWrapper">
+      <div class="gardens-media-wrap" id="gardensMediaWrap">
+        <video
+          id="gardensVideo"
+          class="autoplay-video"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          webkit-playsinline
+          aria-hidden="true"
+        >
+          <source src="./assets/videos/05-pool-gardens.mp4" type="video/mp4">
+        </video>
+        <div class="video-fallback teal-fallback" id="gardensFallback" aria-hidden="true"></div>
+        <div class="vignette" aria-hidden="true"></div>
+      </div>
+
+      <div class="gardens-content">
+        <div class="eyebrow-text">
+          <span class="eyebrow-num">04</span>
+          <span class="eyebrow-dash">—</span>
+          <span>Pool &amp; Gardens</span>
+        </div>
+        <h2 class="gardens-headline reveal-lines">
+          <span class="reveal-line">Where water</span>
+          <span class="reveal-line">holds the sky.</span>
+        </h2>
+      </div>
+
+      <!-- Floating parallax keywords -->
+      <div class="gardens-floaters" aria-hidden="true">
+        <span class="floater" data-depth="0.3" style="left:12%;top:35%">Stillness</span>
+        <span class="floater" data-depth="0.6" style="left:68%;top:25%">Marigold</span>
+        <span class="floater" data-depth="0.45" style="left:40%;top:70%">Dawn</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CHAPTER 6 — NIGHT FINALE (Scroll-scrubbed)
+  ============================================================ -->
+  <section class="chapter chapter-finale" id="chapter-finale" data-chapter="06">
+    <div class="scrub-pin-wrapper" id="finalePinWrapper">
+      <div class="scrub-media">
+        <video
+          id="finaleVideo"
+          class="scrub-video"
+          muted
+          playsinline
+          preload="metadata"
+          webkit-playsinline
+          aria-hidden="true"
+        >
+          <source src="./assets/videos/06-night-finale.mp4" type="video/mp4">
+        </video>
+        <div class="video-fallback night-fallback" id="finaleFallback" aria-hidden="true"></div>
+        <div class="vignette" aria-hidden="true"></div>
+      </div>
+
+      <div class="finale-content">
+        <h2 class="finale-headline" id="finaleHeadline">
+          <span class="finale-word">Some</span>
+          <span class="finale-word">places</span>
+          <span class="finale-word">you</span>
+          <span class="finale-word">visit.</span>
+          <br />
+          <span class="finale-word italic">This</span>
+          <span class="finale-word italic">one,</span>
+          <span class="finale-word italic">you</span>
+          <span class="finale-word italic">remember.</span>
+        </h2>
+        <div class="finale-cta-wrap" id="finaleCta">
+          <a href="#" class="cta-button magnetic-btn" id="ctaButton">
+            <span class="cta-text">Reserve Your Stay</span>
+            <div class="cta-border-draw" aria-hidden="true">
+              <svg viewBox="0 0 300 60" preserveAspectRatio="none">
+                <rect class="cta-border-path" x="1" y="1" width="298" height="58" rx="0" ry="0"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" id="footer" role="contentinfo">
+    <div class="footer-jali" aria-hidden="true">
+      <svg class="footer-jali-svg" viewBox="0 0 200 20" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="footerJali" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M10,0 L20,10 L10,20 L0,10 Z" fill="none" stroke="#C9A96E" stroke-width="0.5" opacity="0.4"/>
+            <circle cx="10" cy="10" r="2" fill="none" stroke="#C9A96E" stroke-width="0.3" opacity="0.3"/>
+          </pattern>
+        </defs>
+        <rect width="200" height="20" fill="url(#footerJali)"/>
+      </svg>
+    </div>
+
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Rajmahal Palace</div>
+        <p class="footer-tagline">Upon the lake, beyond time.</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-nav-col">
+          <h3 class="footer-nav-title">Experience</h3>
+          <a href="#chapter-arrival" class="footer-nav-link">The Arrival</a>
+          <a href="#chapter-durbar" class="footer-nav-link">Durbar Hall</a>
+          <a href="#chapter-suites" class="footer-nav-link">Royal Suites</a>
+          <a href="#chapter-gardens" class="footer-nav-link">Pool &amp; Gardens</a>
+        </div>
+        <div class="footer-nav-col">
+          <h3 class="footer-nav-title">Plan</h3>
+          <a href="#chapter-finale" class="footer-nav-link">Reserve</a>
+          <a href="#" class="footer-nav-link">Dining</a>
+          <a href="#" class="footer-nav-link">Wellness</a>
+          <a href="#" class="footer-nav-link">Events</a>
+        </div>
+        <div class="footer-nav-col">
+          <h3 class="footer-nav-title">Contact</h3>
+          <a href="tel:+911234567890" class="footer-nav-link">+91 123 456 7890</a>
+          <a href="mailto:reservations@rajmahalpalace.com" class="footer-nav-link">reservations@rajmahalpalace.com</a>
+          <span class="footer-nav-link">Udaipur, Rajasthan, India</span>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-rule"></div>
+      <div class="footer-bottom-inner">
+        <span class="footer-copy">© 2025 The Rajmahal Palace. All rights reserved.</span>
+        <span class="footer-credit">A fictional concept property — designed &amp; built with Claude.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
